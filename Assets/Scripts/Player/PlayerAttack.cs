@@ -12,11 +12,18 @@ public class PlayerAttack : MonoBehaviour
 
     void Update()
     {
+        
+
         if (atkCooldown <= 0)
         {
+            if (Input.GetKey(KeyCode.Space))
+            {
+
+            }
+
             atkCooldown = startAtkCooldown;
-        } else
-        {
+
+        } else {
             atkCooldown -= Time.deltaTime;
         }
     }

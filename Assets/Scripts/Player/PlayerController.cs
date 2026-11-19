@@ -1,12 +1,11 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
     private Rigidbody2D playerRb;
-    public int life;
     public float moveSpeed = 5f;
+    public float runMultiplier = 1.8f;
+    private bool isRunning = false;
     private Vector2 movementDirection;
 
     void Start()
@@ -22,12 +21,21 @@ public class PlayerController : MonoBehaviour
         Input.GetAxisRaw("Vertical")
         ).normalized;
 
+        isRunning = Input.GetKey(KeyCode.LeftShift);
+
     }
 
     void FixedUpdate()
     {
-        playerRb.MovePosition(
-            playerRb.position + 
-            movementDirection * moveSpeed * Time.fixedDeltaTime);    
+
+        float currentSpeed = isRunning ? moveSpeed * runMultiplier : moveSpeed;
+        playerRb.linearVelocity = movementDirection * currentSpeed;
+
+    }
+
+    private void OnDisable()
+    {
+        movementDirection = Vector2.zero;
+        playerRb.linearVelocity = Vector2.zero;
     }
 }
