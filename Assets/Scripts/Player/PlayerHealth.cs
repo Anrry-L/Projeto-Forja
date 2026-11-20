@@ -1,23 +1,22 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerHealth : MonoBehaviour
 {
     [SerializeField] private int life = 5;
-    private int minLife, maxLife;
+    [SerializeField] private int minLife, maxLife;
+    [SerializeField] private float blinkTime;
+    [SerializeField] private float invincibilityDuration = 2f;
 
     private bool isDead = false;
     private bool isInvincible = false;
-    [SerializeField] private float blinkTime;
-
-
-    [SerializeField] private float invincibilityDuration = 2f;
-
 
     // 1. Campos: existem enquanto o objeto existir
     private PlayerController controller;
     private SpriteRenderer spriteR;
     private Animator animator;
+    [SerializeField] private GameManager gameManager;
 
     // 2. Awake: busca os componentes uma única vez
     private void Awake()
@@ -78,7 +77,7 @@ public class PlayerHealth : MonoBehaviour
 
     }
 
-    private void Die()
+    public void Die()
     {
         if (isDead)
         {
@@ -87,8 +86,12 @@ public class PlayerHealth : MonoBehaviour
 
         isDead = true;
         Debug.Log("Player morreu!");
+        
+        if (gameManager != null)
+        {
+            gameManager.RestartGameAfterDead();
+        }
 
-        // 3. Usa os campos já preenchidos, sem GetComponent aqui
         if (controller != null)
         {
             controller.enabled = false;
@@ -102,5 +105,6 @@ public class PlayerHealth : MonoBehaviour
         {
             animator.enabled = false;
         }
+
     }
 }

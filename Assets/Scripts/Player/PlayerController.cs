@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
@@ -23,7 +24,11 @@ public class PlayerController : MonoBehaviour
 
         isRunning = Input.GetKey(KeyCode.LeftShift);
 
-    }
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        }
+}
 
     void FixedUpdate()
     {
