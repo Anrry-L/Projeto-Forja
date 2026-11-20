@@ -16,11 +16,13 @@ public class PlayerHealth : MonoBehaviour
     private PlayerController controller;
     private SpriteRenderer spriteR;
     private Animator animator;
+    private PlayerAttack playerAttack;
     [SerializeField] private GameManager gameManager;
 
     // 2. Awake: busca os componentes uma única vez
     private void Awake()
-    {
+    { 
+        playerAttack = GetComponent<PlayerAttack>();
         controller = GetComponent<PlayerController>();
         spriteR = GetComponent<SpriteRenderer>();
         animator = GetComponent<Animator>();
@@ -86,11 +88,6 @@ public class PlayerHealth : MonoBehaviour
 
         isDead = true;
         Debug.Log("Player morreu!");
-        
-        if (gameManager != null)
-        {
-            gameManager.RestartGameAfterDead();
-        }
 
         if (controller != null)
         {
@@ -105,6 +102,18 @@ public class PlayerHealth : MonoBehaviour
         {
             animator.enabled = false;
         }
-
+        // Desliga o ataque: Player morto não pode atacar
+        if (playerAttack != null)
+        {
+            playerAttack.enabled = false;
+        }
+        if (gameManager != null)
+        {
+            gameManager.RestartGameAfterDead();
+        }
+        else
+        {
+            Debug.LogWarning("PlayerHealth: GameManager não foi atribuído no Inspector!");
+        }
     }
 }

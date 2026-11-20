@@ -23,11 +23,6 @@ public class PlayerController : MonoBehaviour
         ).normalized;
 
         isRunning = Input.GetKey(KeyCode.LeftShift);
-
-        if (Input.GetKeyDown(KeyCode.R))
-        {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-        }
 }
 
     void FixedUpdate()

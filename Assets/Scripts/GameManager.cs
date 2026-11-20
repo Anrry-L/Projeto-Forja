@@ -4,7 +4,7 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    [SerializeField] private float restartTime;
+    [SerializeField] private float restartTime = 1f;
 
     private IEnumerator RestartDeadRoutine()
     {
@@ -17,5 +17,13 @@ public class GameManager : MonoBehaviour
     public void RestartGameAfterDead()
     {
         StartCoroutine(RestartDeadRoutine());
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        }
     }
 }
