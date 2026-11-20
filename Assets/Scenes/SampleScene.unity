@@ -9244,7 +9244,7 @@ Rigidbody2D:
     serializedVersion: 2
     m_Bits: 0
   m_Interpolate: 0
-  m_SleepingMode: 1
+  m_SleepingMode: 0
   m_CollisionDetection: 0
   m_Constraints: 4
 --- !u!114 &90211349
@@ -9262,6 +9262,7 @@ MonoBehaviour:
   life: 5
   minLife: 0
   maxLife: 5
+  invincibilityDuration: 1.5
 --- !u!95 &90211350
 Animator:
   serializedVersion: 7

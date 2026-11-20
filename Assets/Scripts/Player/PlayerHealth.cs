@@ -1,11 +1,18 @@
+using System.Collections;
 using UnityEngine;
 
 public class PlayerHealth : MonoBehaviour
 {
     [SerializeField] private int life = 5;
-    private bool isDead = false;
+    private int minLife, maxLife;
 
-    [SerializeField] private int minLife, maxLife;
+    private bool isDead = false;
+    private bool isInvincible = false;
+    [SerializeField] private float blinkTime;
+
+
+    [SerializeField] private float invincibilityDuration = 2f;
+
 
     // 1. Campos: existem enquanto o objeto existir
     private PlayerController controller;
@@ -20,9 +27,27 @@ public class PlayerHealth : MonoBehaviour
         animator = GetComponent<Animator>();
     }
 
+    private IEnumerator InvincibilityRoutine()
+    {
+            isInvincible = true;
+
+            for (float i = 0; i < invincibilityDuration; i += blinkTime * 2)
+            {
+                spriteR.enabled = false;
+                yield return new WaitForSeconds(blinkTime);
+                spriteR.enabled = true;
+                yield return new WaitForSeconds(blinkTime);
+                Debug.Log(i);
+            }
+
+            spriteR.enabled = true;
+            isInvincible = false;
+
+    }
+
     public void TakeDamage(int damage)
     {
-        if (isDead || damage <= 0)
+        if (isDead || damage <= 0 || isInvincible)
         {
             return;
         }
@@ -30,9 +55,13 @@ public class PlayerHealth : MonoBehaviour
         life = Mathf.Max(life - damage, minLife);
         Debug.Log("Player recebeu um hit! Vida atual: " + life);
 
+
         if (life <= 0)
         {
             Die();
+        } else
+        {
+            StartCoroutine(InvincibilityRoutine());
         }
     }
 
