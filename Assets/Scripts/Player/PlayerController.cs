@@ -30,8 +30,6 @@ public class PlayerController : MonoBehaviour
             FacingDirection = movementDirection;
         }
 
-        Debug.Log(FacingDirection);
-
     }
 
     void FixedUpdate()

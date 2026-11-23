@@ -1232,11 +1232,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerAttack
   attackCooldown: 0.5
-  attackRange: 1.42
+  attackSize: {x: 1, y: 1}
   attackDamage: 1
   enemyLayer:
     serializedVersion: 2
     m_Bits: 128
+  attackDistance: 0.8
 --- !u!1 &94573270
 GameObject:
   m_ObjectHideFlags: 0
