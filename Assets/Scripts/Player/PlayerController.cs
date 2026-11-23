@@ -8,6 +8,7 @@ public class PlayerController : MonoBehaviour
     public float runMultiplier = 1.8f;
     private bool isRunning = false;
     private Vector2 movementDirection;
+    public Vector2 FacingDirection { get; private set; } = Vector2.down;
 
     void Start()
     {
@@ -23,7 +24,15 @@ public class PlayerController : MonoBehaviour
         ).normalized;
 
         isRunning = Input.GetKey(KeyCode.LeftShift);
-}
+
+        if (movementDirection != Vector2.zero)
+        {
+            FacingDirection = movementDirection;
+        }
+
+        Debug.Log(FacingDirection);
+
+    }
 
     void FixedUpdate()
     {

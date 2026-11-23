@@ -102,7 +102,6 @@ public class PlayerHealth : MonoBehaviour
         {
             animator.enabled = false;
         }
-        // Desliga o ataque: Player morto não pode atacar
         if (playerAttack != null)
         {
             playerAttack.enabled = false;
