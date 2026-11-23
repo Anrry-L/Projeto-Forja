@@ -4,9 +4,10 @@ public class EnemyController : MonoBehaviour
 {
     [SerializeField] private float moveSpeed = 2f;
     [SerializeField] private Transform player;
-
     private Rigidbody2D enemyRb;
     private Vector2 moveDirection;
+    public Vector2 FacingDirection { get; private set; } = Vector2.down;
+    public bool CanMove { get; set; } = true;
 
     private void Awake()
     {
@@ -23,7 +24,7 @@ public class EnemyController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (player == null)
+        if (player == null || !CanMove)
         {
             enemyRb.linearVelocity = Vector2.zero;
             return;
@@ -31,5 +32,10 @@ public class EnemyController : MonoBehaviour
 
         moveDirection = ((Vector2)player.position - enemyRb.position).normalized;
         enemyRb.linearVelocity = moveDirection * moveSpeed;
+
+        if (moveDirection != Vector2.zero)
+        {
+            FacingDirection = moveDirection;
+        }
     }
 }

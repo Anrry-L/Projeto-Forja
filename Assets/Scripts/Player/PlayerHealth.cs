@@ -38,7 +38,7 @@ public class PlayerHealth : MonoBehaviour
                 yield return new WaitForSeconds(blinkTime);
                 spriteR.enabled = true;
                 yield return new WaitForSeconds(blinkTime);
-                Debug.Log(i);
+                //Debug.Log(i);
             }
 
             spriteR.enabled = true;

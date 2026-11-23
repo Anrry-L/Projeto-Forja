@@ -60,9 +60,9 @@ public class PlayerAttack : MonoBehaviour
         return Mathf.Atan2(facing.y, facing.x) * Mathf.Rad2Deg;
     }
     private void OnDrawGizmosSelected()
-{
-    Gizmos.color = Color.red;
-    Gizmos.matrix = Matrix4x4.TRS(GetAttackCenter(), Quaternion.Euler(0, 0, GetAttackAngle()), Vector3.one);
-    Gizmos.DrawWireCube(Vector3.zero, attackSize);
-}
+    {
+        Gizmos.color = Color.red;
+        Gizmos.matrix = Matrix4x4.TRS(GetAttackCenter(), Quaternion.Euler(0, 0, GetAttackAngle()), Vector3.one);
+        Gizmos.DrawWireCube(Vector3.zero, attackSize);
+    }
 }
