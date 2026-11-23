@@ -1,11 +1,13 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UIElements;
 
 public class PlayerController : MonoBehaviour
 {
     private Rigidbody2D playerRb;
     public float moveSpeed = 5f;
     public float runMultiplier = 1.8f;
+    public Vector2 playerPos;
     private bool isRunning = false;
     private Vector2 movementDirection;
     public Vector2 FacingDirection { get; private set; } = Vector2.down;
@@ -17,6 +19,7 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
+        
 
         movementDirection = new Vector2(
         Input.GetAxisRaw("Horizontal"),
@@ -29,6 +32,8 @@ public class PlayerController : MonoBehaviour
         {
             FacingDirection = movementDirection;
         }
+
+        playerPos = transform.position;
 
     }
 
