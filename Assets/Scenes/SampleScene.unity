@@ -1219,7 +1219,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerController
   moveSpeed: 5
   runMultiplier: 1.5
-  playerPos: {x: 0, y: 0}
 --- !u!114 &90211352
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -18787,7 +18786,6 @@ GameObject:
   - component: {fileID: 977986655}
   - component: {fileID: 977986653}
   - component: {fileID: 977986654}
-  - component: {fileID: 977986652}
   - component: {fileID: 977986650}
   - component: {fileID: 977986649}
   - component: {fileID: 977986656}
@@ -18828,7 +18826,7 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
@@ -18919,19 +18917,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &977986652
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 977986648}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2a0f5c8e1ae41d040be3a3027ec59183, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::NewMonoBehaviourScript
-  damage: 1
 --- !u!114 &977986653
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -18956,7 +18941,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b0739bc972f88c74ba15576f6de64927, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyAttack
-  a: 0
+  attackCooldown: 1
+  attackDamage: 1
+  playerLayer:
+    serializedVersion: 2
+    m_Bits: 64
+  attackDistance: 0.86
+  attackSize: {x: 1, y: 1}
+  idleTime: 1
+  attackTime: 0.7
 --- !u!114 &977986655
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -18969,7 +18962,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 415fee0095f84cf4280ae1da1a9a882a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyController
-  moveSpeed: 5
+  moveSpeed: 2.5
+  player: {fileID: 90211344}
 --- !u!50 &977986656
 Rigidbody2D:
   serializedVersion: 5

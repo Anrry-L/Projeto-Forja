@@ -10,6 +10,7 @@ public class EnemyAttack : MonoBehaviour
     [SerializeField] private float attackDistance = 0.8f;
     [SerializeField] private Vector2 attackSize = new Vector2(1f, 1f);
     [SerializeField] private float idleTime = 1f;
+    [SerializeField] private float attackTime = 0.7f;
     private EnemyController controller;
 
     void Start()
@@ -19,16 +20,19 @@ public class EnemyAttack : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (!isAttacking)
+        if (!isAttacking && FindPlayer() != null)
         {
-            Attack();
+            StartCoroutine(AttackRoutine());
         }
     }
 
-    private IEnumerator AttackingRoutine()
+    private IEnumerator AttackRoutine()
     {
         isAttacking = true;
         controller.CanMove = false;
+
+        yield return new WaitForSeconds(attackTime);
+        Attack();
 
         yield return new WaitForSeconds(idleTime);
         controller.CanMove = true;
@@ -39,17 +43,27 @@ public class EnemyAttack : MonoBehaviour
 
     private void Attack()
     {
+        PlayerHealth target = FindPlayer();
+
+        if (target != null)
+        {
+            target.TakeDamage(attackDamage);
+        }
+    }
+
+    private PlayerHealth FindPlayer()
+    {
         Collider2D[] hits = Physics2D.OverlapBoxAll(GetAttackCenter(), attackSize, GetAttackAngle(), playerLayer);
 
         foreach (Collider2D hit in hits)
         {
             if (hit.TryGetComponent(out PlayerHealth playerHealth))
             {
-                playerHealth.TakeDamage(attackDamage);
-                StartCoroutine(AttackingRoutine());
-                return;
+                return playerHealth;
             }
         }
+
+        return null;
     }
 
     private Vector2 GetFacing()
