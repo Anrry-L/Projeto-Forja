@@ -1,6 +1,5 @@
 using System.Collections;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class PlayerHealth : MonoBehaviour
 {
@@ -30,23 +29,20 @@ public class PlayerHealth : MonoBehaviour
 
     private IEnumerator InvincibilityRoutine()
     {
-            isInvincible = true;
+        isInvincible = true;
 
-            for (float i = 0; i < invincibilityDuration; i += blinkTime * 2)
-            {
-                spriteR.enabled = false;
-                yield return new WaitForSeconds(blinkTime);
-                spriteR.enabled = true;
-                yield return new WaitForSeconds(blinkTime);
-                //Debug.Log(i);
-            }
-
+        for (float i = 0; i < invincibilityDuration; i += blinkTime * 2)
+        {
+            spriteR.enabled = false;
+            yield return new WaitForSeconds(blinkTime);
             spriteR.enabled = true;
-            isInvincible = false;
+            yield return new WaitForSeconds(blinkTime);
+        }
 
+        isInvincible = false;
     }
 
-    public void TakeDamage(int damage)
+    public void TakeDamage(int damage, Vector2 knockback)
     {
         if (isDead || damage <= 0 || isInvincible)
         {
@@ -56,18 +52,20 @@ public class PlayerHealth : MonoBehaviour
         life = Mathf.Max(life - damage, minLife);
         Debug.Log("Player recebeu um hit! Vida atual: " + life);
 
-
         if (life <= 0)
         {
             Die();
-        } else
+        }
+        else
         {
+            controller.ApplyKnockback(knockback);
             StartCoroutine(InvincibilityRoutine());
         }
     }
 
     public bool HealPlayer(int heal)
     {
+
         if (isDead || heal <= 0 || life >= maxLife)
         {
             return false;

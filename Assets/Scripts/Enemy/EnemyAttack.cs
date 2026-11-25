@@ -4,6 +4,8 @@ using UnityEngine;
 public class EnemyAttack : MonoBehaviour
 {
     [SerializeField] private float attackCooldown = 0.5f;
+    [SerializeField] private float knockbackSpeed = 1f;
+    private Rigidbody2D enemyRb;
     private bool isAttacking = false;
     [SerializeField] private int attackDamage = 1;
     [SerializeField] private LayerMask playerLayer;
@@ -16,6 +18,7 @@ public class EnemyAttack : MonoBehaviour
     void Start()
     {
         controller = GetComponent<EnemyController>();
+        enemyRb = GetComponent<Rigidbody2D>();
     }
 
     private void FixedUpdate()
@@ -47,7 +50,8 @@ public class EnemyAttack : MonoBehaviour
 
         if (target != null)
         {
-            target.TakeDamage(attackDamage);
+            Vector2 direction = ((Vector2)target.transform.position - enemyRb.position).normalized;
+            target.TakeDamage(attackDamage, direction * knockbackSpeed);
         }
     }
 

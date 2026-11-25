@@ -1219,6 +1219,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerController
   moveSpeed: 5
   runMultiplier: 1.5
+  knockbackDuration: 1
 --- !u!114 &90211352
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1232,7 +1233,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerAttack
   attackCooldown: 0.5
-  attackSize: {x: 1, y: 1}
+  attackSize: {x: 0.7, y: 1.5}
   attackDamage: 1
   enemyLayer:
     serializedVersion: 2
@@ -18942,12 +18943,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyAttack
   attackCooldown: 1
+  knockbackSpeed: 1
   attackDamage: 1
   playerLayer:
     serializedVersion: 2
     m_Bits: 64
   attackDistance: 0.86
-  attackSize: {x: 1, y: 1}
+  attackSize: {x: 0.67, y: 1.4}
   idleTime: 1
   attackTime: 0.7
 --- !u!114 &977986655
