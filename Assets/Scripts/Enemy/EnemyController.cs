@@ -4,6 +4,7 @@ public class EnemyController : MonoBehaviour
 {
     [SerializeField] private float moveSpeed = 2f;
     [SerializeField] private Transform player;
+    [SerializeField] private LayerMask wallLayer;
     private Rigidbody2D enemyRb;
     private Vector2 moveDirection;
     public Vector2 FacingDirection { get; private set; } = Vector2.down;
@@ -24,7 +25,7 @@ public class EnemyController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (player == null || !CanMove)
+        if (player == null || !CanMove || !CanSeePlayer())
         {
             enemyRb.linearVelocity = Vector2.zero;
             return;
@@ -37,5 +38,11 @@ public class EnemyController : MonoBehaviour
         {
             FacingDirection = moveDirection;
         }
+    }
+    private bool CanSeePlayer()
+    {
+        RaycastHit2D linhaVisao = Physics2D.Linecast(transform.position, player.transform.position, wallLayer);
+        Debug.DrawLine(transform.position, player.position, Color.red);
+        return linhaVisao.collider == null;
     }
 }

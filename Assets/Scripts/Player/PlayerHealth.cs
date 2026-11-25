@@ -68,7 +68,7 @@ public class PlayerHealth : MonoBehaviour
 
         if (isDead || heal <= 0 || life >= maxLife)
         {
-            return false;
+            return false; 
         }
 
         life = Mathf.Min(life + heal, maxLife);
